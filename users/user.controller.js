@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const authorize = require('./_helpers/authorize')
+const authorize = require('../_helpers/authorize')
 const userService = require('./user.service')
-const Role = require('_helpers/role')
+const Role = require('../_helpers/role')
 
 const authenticate = (req, res, next) => {
     userService.authenticate(req.body)
@@ -49,7 +49,7 @@ const getById = (req, res, next) => {
 }
 router
     .post('/authenticate', authenticate)
-    .get('/', authorize(Role.Admin), getAll)
-    .get('/:id', authorize(), getById)
+    .get('/', () => authorize(Role.Admin), getAll)
+    .get('/:id', () => authorize(), getById)
 
 module.exports = router

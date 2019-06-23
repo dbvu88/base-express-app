@@ -11,6 +11,8 @@ const authorize = (roles = []) => {
         roles = [roles];
     }
 
+    console.log('hi')
+
     return [
         // authenticate JWT token and attach user to request object (req.user)
         expressJwt({
