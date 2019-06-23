@@ -1,3 +1,4 @@
 .env
-package-lock.jon
+package-lock.json
 node_modules
+config.json
