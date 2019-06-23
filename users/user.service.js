@@ -49,7 +49,7 @@ const authenticate = async ({
 }
 
 const getAll = async () => {
-    return user.map(u => {
+    return users.map(u => {
         const {
             password,
             ...userWithoutPassword
@@ -64,7 +64,7 @@ const getById = async (id) => {
         return u.id === parseInt(id)
     });
 
-    if (!user) return;
+    if (!user) throw new Error('User Not Found');
 
     const {
         password,

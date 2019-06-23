@@ -27,10 +27,10 @@ const getAll = (req, res, next) => {
 }
 
 const getById = (req, res, next) => {
-    const currentUser = req.user;
+    const currentUser = req.decodedToken;
     const id = parseInt(req.params.id);
 
-    if (id !== currentUser.sub && currentUser.Role !== Role.Admin) {
+    if (id !== currentUser.sub && currentUser.role !== Role.Admin) {
         return res
             .status(401)
             .json({
@@ -39,17 +39,12 @@ const getById = (req, res, next) => {
     }
 
     userService.getById(req.params.id)
-        .then(user => {
-            if (user) {
-                return res.json(user)
-            }
-            return res.status(404)
-        })
+        .then(user => res.json(user))
         .catch(err => next(err));
 }
 router
     .post('/authenticate', authenticate)
-    .get('/', () => authorize(Role.Admin), getAll)
-    .get('/:id', () => authorize(), getById)
+    .get('/', authorize, getAll)
+    .get('/:id', authorize, getById)
 
 module.exports = router
