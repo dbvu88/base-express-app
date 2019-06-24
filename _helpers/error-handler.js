@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
         });
     }
 
-    if (err.name === 'UnauthorizedError') {
+    if (err.name === 'JsonWebTokenError') {
         // jwt authentication error
         return res.status(401).json({
             message: 'Invalid Token'
@@ -14,7 +14,7 @@ const errorHandler = (err, req, res, next) => {
     }
 
     // default to 500 server error
-    return res.status(500).json({
+    return res.status(err.status || 500).json({
         message: err.message
     });
 }
