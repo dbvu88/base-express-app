@@ -44,7 +44,7 @@ const getById = (req, res, next) => {
 }
 router
     .post('/authenticate', authenticate)
-    .get('/', authorize, getAll)
-    .get('/:id', authorize, getById)
+    .get('/', authorize([Role.Admin]), getAll)
+    .get('/:id', authorize(), getById)
 
 module.exports = router

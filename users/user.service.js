@@ -64,7 +64,9 @@ const getById = async (id) => {
         return u.id === parseInt(id)
     });
 
-    if (!user) throw new Error('User Not Found');
+    const error = new Error('User Not Found')
+    error.status = 404
+    if (!user) throw error;
 
     const {
         password,
