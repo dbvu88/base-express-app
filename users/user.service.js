@@ -32,10 +32,13 @@ const authenticate = async ({
 
     if (user) {
         const token = jwt.sign({
-            sub: user.id,
-            role: user.role
-        }, process.env.SECRET);
-
+                sub: user.id,
+                role: user.role
+            },
+            process.env.SECRET, {
+                expiresIn: "1h"
+            }
+        );
         const {
             password,
             ...userWithoutPassword
